@@ -40,21 +40,54 @@ app = Flask(__name__)
 @app.route("/")
 def welcome():
     return (
-        f"<H1>Welcome to the ETL Project Page<H1>"
+        f"<h1>Welcome to the ETL Project Page</h1>"
         f"<p>In this page we will show our analysis for stock prices of companies on S&P500<p>"
-        f"<p>List of Companies<p>"
-        f"/companies<br/>"
+        f"<h4>Links Available</h4>"
+        f"//company<br/>"
+        f"/price<br/>"
+        f"/subsectors<br/>"
+        f"/about<br/>"
     )
 
 
+# Home page. List all routes that are available.
+@app.route("/about")
+def about():
+    return f"<h1>About</h1>"
+
+
 # Return a table with the query results for the companies table
-@app.route("/companies")
-def measurment():
-    """Return a table with the last measurments"""
+@app.route("/company")
+def listcompanies():
+    """Return a table with the list of companies"""
 
-    companies = pd.read_sql(f"SELECT * FROM {table_companies}", engine)
+    companies_df = pd.read_sql(f"SELECT * FROM {table_companies}", engine)
 
-    html = companies.to_html()
+    html = companies_df.to_html()
+
+    return html
+
+
+# Return a table with the query results for the companies table
+@app.route("/price")
+def listprice():
+    """Return a table with the list stock price"""
+
+    prices_df = pd.read_sql(f"SELECT * FROM {table_price}", engine)
+
+    html = prices_df.to_html()
+
+    return html
+
+
+# Return a table with the query results for the companies table
+@app.route("/subsectors")
+def subsectors():
+    """Return a table with the list sub sectors"""
+
+    subsectors_df = pd.read_sql(f"SELECT * FROM {table_subsectors}", engine)
+
+    html = subsectors_df.to_html()
 
     return html
 
