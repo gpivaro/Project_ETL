@@ -43,7 +43,7 @@ def welcome():
         f"<h1>Welcome to the ETL Project Page</h1>"
         f"<p>In this page we will show our analysis for stock prices of companies on S&P500<p>"
         f"<h4>Links Available</h4>"
-        f"//company<br/>"
+        f"/company<br/>"
         f"/price<br/>"
         f"/subsectors<br/>"
         f"/about<br/>"
