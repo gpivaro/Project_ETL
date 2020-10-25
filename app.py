@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template
 from sqlalchemy import create_engine
 import pandas as pd
 import os
-
+import json
 
 # Import DB user and password
 from api_keys import mysql_hostname
@@ -37,27 +37,27 @@ app = Flask(__name__)
 
 # /
 # Home page. List all routes that are available.
-@app.route("/")
+@app.route("/etl")
 def welcome():
     return (
         f"<h1>Welcome to the ETL Project Page</h1>"
         f"<p>In this page we will show our analysis for stock prices of companies on S&P500<p>"
-        f"<h4>Links Available</h4>"
+        f"<h4>Links available:</h4>"
         f"/company<br/>"
+        f"/company/comp_tick<br/>"
         f"/price<br/>"
-        f"/subsectors<br/>"
         f"/about<br/>"
     )
 
 
 # Home page. List all routes that are available.
-@app.route("/about")
+@app.route("/etl/about")
 def about():
     return f"<h1>About</h1>"
 
 
 # Return a table with the query results for the companies table
-@app.route("/company")
+@app.route("/etl/company")
 def listcompanies():
     """Return a table with the list of companies"""
 
@@ -67,9 +67,15 @@ def listcompanies():
 
     return html
 
+    #result = companies_df.to_json(orient="records")
+    #parsed = json.loads(result)
+
+    #return jsonify(parsed)
+
+
 
 # Return a table with the query results for the companies table
-@app.route("/price")
+@app.route("/etl/price")
 def listprice():
     """Return a table with the list stock price"""
 
@@ -80,16 +86,16 @@ def listprice():
     return html
 
 
-# Return a table with the query results for the companies table
-@app.route("/subsectors")
-def subsectors():
-    """Return a table with the list sub sectors"""
+# Return a json version of the company
+@app.route("/etl/company/<tick>")
+def company_tick(tick):
 
-    subsectors_df = pd.read_sql(f"SELECT * FROM {table_subsectors}", engine)
+    Comp_info = pd.read_sql(f"Select c.comp_name, c.sect_name, c.first_trade_date from {table_companies} AS c  WHERE c.comp_tick = '{tick.upper()}'", engine)
 
-    html = subsectors_df.to_html()
+    result = Comp_info.to_json(orient="records")
+    parsed = json.loads(result)
 
-    return html
+    return jsonify(parsed)
 
 
 # The server is set to run on the computer IP address on the port 5100
