@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ETL project</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://localhost:5100/etl">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">    
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:5100/etl/company">List of S&P 500 Companies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:5100/etl/about">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br><br>
+        <div class="container col-md-5">
+        <h1 class="display-4">About The Project</h1>
+        <hr class="my-4">
+        <p class="lead">
+            This project has the ability to display stock information from a list of companies and display closing price based on the selected date range. 
+            The S&P 500 list of companies was scraped from Wikipedia and also contained the company's tickers name, Sector, Sub Sector and the date that company first started trading.
+            Based on the S&P 500 list, a wrapper was used that would access the Yahoo API to get the company’s trade information per date.
+        </p>
+        <p class="lead">The list of the S&P 500 was scraped from Wikipedia and saved it as a Pandas Dataframe. Data clean up included removal and renaming of colunmns from the
+            table scrapped from Wikipedia to fit the tables that exist in the SQL database. The index of the company table was set as the company ticker to match the database. 
+            Null values existing in the "First Trade Date" column were configured in database to accept. However, two dates existing in the "First Trade Date" column existed as well.
+            These rows were located and the dates were separated. The first date was used since it was the date the latest date and the date that was related to the price information.
+        </p>
+    </div>
