@@ -1,13 +1,15 @@
 # Project ETL (Extract, Transform, Load)
 
-### Data Sources:
-* Wikipedia
-* Yahoo finance 
+This repository presents and ETL project that is hosted in a live server and is accessible [here](http://www.gpivaro.com:5100/etl).
 
-Names:
-Jocelyn Flores
-Gabriel Pivaro
-Kimberly Flores
+### Data Sources:
+* [Wikipedia List of S&P 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)
+* [Yahoo finance](https://pypi.org/project/yahoo-finance/)
+
+### Group Members:
+* Jocelyn Flores
+* Gabriel Pivaro
+* Kimberly Flores
 
 What useful investigation could be done with the final database?
 The Wikipedia gives us a list of the Company names, sector and tickers. We can use this to go and get more information on the Yahoo finance side to get the stock prices to analyze how the sector is performing during a set time frame.
@@ -15,7 +17,7 @@ The Wikipedia gives us a list of the Company names, sector and tickers. We can u
 Whether final database will be relational or non-relational. Why?
 We will be using a relational database because our information is very structured and additionally we have access to a cloud MySQL so that we can all access the database.
 
-### Final Report:
+### Project Description:
 
 We chose Wikipedia for the web scraping of the list of the S&P 500 companies and Yahoo finance for the stock closing prices. We chose Wikipedia because of the information that was provided alongside the list of the companies. We chose Yahoo Finance because it was a free API with data going back to the 1960s and had a surplus of the data that we needed in case we wanted to expand the project.
 
@@ -27,7 +29,8 @@ We used a SQL database because our data was structured and due to us having acce
 
 ![image.png](Images/image.png)
 
-*CREATE TABLE companies (
+```
+CREATE TABLE companies (
     id INT SERIAL DEFAULT VALUE,
     comp_tick VARCHAR(5) PRIMARY KEY,
     comp_name VARCHAR(50) Not Null,
@@ -35,11 +38,11 @@ We used a SQL database because our data was structured and due to us having acce
     sub_sect_name VARCHAR(55),
     first_trade_date DATE
 );
-SELECT
-    *
-FROM
-    companies;
-DROP TABLE IF exists  `etlprojectdb`.`price`;
+```
+
+
+
+```
 CREATE TABLE price (
     id SERIAL PRIMARY KEY,
     comp_tick VARCHAR(5) REFERENCES companies(comp_tick),
@@ -48,19 +51,8 @@ CREATE TABLE price (
     volume FLOAT,
     currency VARCHAR(3)
 );
-SELECT
-    *
-FROM
-    price; *
-    
-
-This database can be used to track the performance of companies over time and see how they are progressing against other companies in the same sector. The data can be scraped and then used for further analysis and visualizations. You can group data by sector or sub-sector and see their statistical summary and recognize patterns. You can organize the companies by the sector or sub-sector as well in the case that you are only interested in a particular sector/sub-sector. 
+```
 
 
 
-
-
-
-
-
-
+This database can be used to track the performance of companies over time and see how they are progressing against other companies in the same sector. The data can be scraped and then used for further analysis and visualizations. You can group data by sector or sub-sector and see their statistical summary and recognize patterns. You can organize the companies by the sector or sub-sector as well in the case that you are only interested in a particular sector/sub-sector.
