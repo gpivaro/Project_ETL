@@ -133,8 +133,6 @@ __pycache__
 .ipynb_checkpoints
 .DS_Store
 venv
-gunicorn_config.py
 installpackages.py
-wsgi.py
 requirements.txt
 schema copy.sql
