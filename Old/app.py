@@ -39,13 +39,21 @@ app = Flask(__name__)
 # Home page. List all routes that are available.
 @app.route("/etl")
 def welcome():
-    return render_template("index.html")
+    return (
+        f"<h1>Welcome to the ETL Project Page</h1>"
+        f"<p>In this page we will show our analysis for stock prices of companies on S&P500<p>"
+        f"<h4>Links available:</h4>"
+        f"/company<br/>"
+        f"/company/comp_tick<br/>"
+        f"/price<br/>"
+        f"/about<br/>"
+    )
 
 
 # Home page. List all routes that are available.
 @app.route("/etl/about")
 def about():
-    return render_template("about.html")
+    return f"<h1>About</h1>"
 
 
 # Return a table with the query results for the companies table
@@ -59,29 +67,19 @@ def listcompanies():
 
     return html
 
+    #result = companies_df.to_json(orient="records")
+    #parsed = json.loads(result)
 
-# Return a json list with the query results for the companies table
-@app.route("/etl/company/json")
-def listcompaniesjson():
-    """Return a table with the list of companies"""
+    #return jsonify(parsed)
 
-    companies_df = pd.read_sql(f"SELECT * FROM {table_companies}", engine)
-
-    result = companies_df.to_json(orient="records")
-    parsed = json.loads(result)
-
-    return jsonify(parsed)
 
 
 # Return a table with the query results for the companies table
-@app.route("/etl/<company>/<start>/<end>")
-def listprice(company, start, end):
+@app.route("/etl/price")
+def listprice():
     """Return a table with the list stock price"""
 
-    prices_df = pd.read_sql(
-        f"Select c.comp_tick, c.sect_name, c.sub_sect_name, p.close_price AS CLOSING_PRICE, p.volume, p.date from {table_companies} AS c join {table_price} as p on p.comp_tick = c.comp_tick where c.comp_tick = '{company}' and p.date between '{start}' and '{end}'",
-        engine,
-    )
+    prices_df = pd.read_sql(f"SELECT * FROM {table_price}", engine)
 
     html = prices_df.to_html()
 
@@ -92,23 +90,12 @@ def listprice(company, start, end):
 @app.route("/etl/company/<tick>")
 def company_tick(tick):
 
-    Comp_info = pd.read_sql(
-        f"Select c.comp_name, c.sect_name, c.first_trade_date from {table_companies} AS c  WHERE c.comp_tick = '{tick.upper()}'",
-        engine,
-    )
+    Comp_info = pd.read_sql(f"Select c.comp_name, c.sect_name, c.first_trade_date from {table_companies} AS c  WHERE c.comp_tick = '{tick.upper()}'", engine)
 
     result = Comp_info.to_json(orient="records")
     parsed = json.loads(result)
 
     return jsonify(parsed)
-
-
-# get comp info based on current date
-
-Comp_info = pd.read_sql(
-    f"Select c.comp_name, c.comp_tick, c.sect_name, p.close_price AS LATEST_CLOSE_PRICE, p.date AS LATEST_PRICE_DATE from {table_companies} AS c join {table_price} as p on p.comp_tick = c.comp_tick WHERE c.comp_tick = 'AAPL' order by p.date desc limit 1",
-    engine,
-)
 
 
 # The server is set to run on the computer IP address on the port 5100

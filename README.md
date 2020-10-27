@@ -1,8 +1,8 @@
-# Project_ETL
+# Project ETL (Extract, Transform, Load)
 
-Data Sources:
--Wikipedia
--Yahoo finance 
+### Data Sources:
+* Wikipedia
+* Yahoo finance 
 
 Names:
 Jocelyn Flores
@@ -15,7 +15,7 @@ The Wikipedia gives us a list of the Company names, sector and tickers. We can u
 Whether final database will be relational or non-relational. Why?
 We will be using a relational database because our information is very structured and additionally we have access to a cloud MySQL so that we can all access the database.
 
-Final Report:
+### Final Report:
 
 We chose Wikipedia for the web scraping of the list of the S&P 500 companies and Yahoo finance for the stock closing prices. We chose Wikipedia because of the information that was provided alongside the list of the companies. We chose Yahoo Finance because it was a free API with data going back to the 1960s and had a surplus of the data that we needed in case we wanted to expand the project.
 
@@ -25,7 +25,7 @@ Data clean up included removal and renaming of colunmns from the table scrapped 
 
 We used a SQL database because our data was structured and due to us having access to a cloud SQL server. This made data easier to view by the group. The ERD is included below along with the Schema.
 
-![image.png](image.png)
+![image.png](Images/image.png)
 
 *CREATE TABLE companies (
     id INT SERIAL DEFAULT VALUE,

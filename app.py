@@ -39,21 +39,13 @@ app = Flask(__name__)
 # Home page. List all routes that are available.
 @app.route("/etl")
 def welcome():
-    return (
-        f"<h1>Welcome to the ETL Project Page</h1>"
-        f"<p>In this page we will show our analysis for stock prices of companies on S&P500<p>"
-        f"<h4>Links available:</h4>"
-        f"/company<br/>"
-        f"/company/comp_tick<br/>"
-        f"/price<br/>"
-        f"/about<br/>"
-    )
+    return render_template("index.html")
 
 
 # Home page. List all routes that are available.
 @app.route("/etl/about")
 def about():
-    return f"<h1>About</h1>"
+    return render_template("about.html")
 
 
 # Return a table with the query results for the companies table
@@ -75,11 +67,11 @@ def listcompanies():
 
 
 # Return a table with the query results for the companies table
-@app.route("/etl/price")
-def listprice():
+@app.route("/etl/<company>/<start>/<end>")
+def listprice(company, start, end):
     """Return a table with the list stock price"""
 
-    prices_df = pd.read_sql(f"SELECT * FROM {table_price}", engine)
+    prices_df = pd.read_sql(f"Select c.comp_tick, c.sect_name, c.sub_sect_name, p.close_price AS CLOSING_PRICE, p.volume, p.date from {table_companies} AS c join {table_price} as p on p.comp_tick = c.comp_tick where c.comp_tick = '{company}' and p.date between '{start}' and '{end}'",engine)
 
     html = prices_df.to_html()
 
