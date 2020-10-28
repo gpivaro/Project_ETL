@@ -136,3 +136,6 @@ venv
 installpackages.py
 requirements.txt
 schema copy.sql
+List_of_S6P_500_companies.csv
+GICS_Sector.png
+stock_price.csv

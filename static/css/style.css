@@ -1,25 +1,40 @@
+body {
+    background-color: rgb(90, 89, 89);
+}
+
+
+.container {
+    /* margin-top: 20px; */
+    /* display: block;   */
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5%;
+    /* border: 1px solid blue; */
+}
+
+
 img {
     height: 300px;
     width: 400px
 
 }
 
-body {
-    background-color: rgb(90, 89, 89);
-}
 
-.container1 {
+
+/* .container1 {
       background-color: white;
       margin-right: auto;
       margin-left: auto;
       height: fit-content;
       
-}
+} */
 
 p {
     color: black; 
     font-family: Arial;
     font-weight: bold;
+    text-align: justify;
 }
 
 
@@ -92,21 +107,15 @@ p {
     width: 80%;
   }
 
-  .container2 {
+  /* .container2 {
     margin-right: auto;
     margin-left: 20px;
     background-color: white;
     height: fit-content;
     padding-bottom: 50px;
-  }
+  } */
 
-  .container {
-    display: block;  
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
- 
-}
+
 
 .section-head{
     min-height: 40px;
