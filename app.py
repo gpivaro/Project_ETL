@@ -19,10 +19,12 @@ table_price = "price"
 table_companies = "companies"
 table_subsectors = "sub_sectors"
 
+# Try to find an environment variable (specially for Heroko) or use database credentials
 try:
     database_uri = os.environ['DATABASE_URL']
 except KeyError:
     database_url = f"mysql+mysqlconnector://{mysql_username}:{mysql_pass}@{mysql_hostname}:{mysql_port}/{database_name}"
+    print(database_url)
 
 
 # Create the engine
