@@ -19,7 +19,7 @@ table_price = "price"
 table_companies = "companies"
 table_subsectors = "sub_sectors"
 
-# Try to find an environment variable (specially for Heroko) or use database credentials
+# Try to find an environment variable (specially for Heroko) or use database credentials.
 try:
     database_uri = os.environ['DATABASE_URL']
 except KeyError:
