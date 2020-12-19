@@ -5,10 +5,13 @@ import os
 import json
 
 # Import DB user and password
-from api_keys import mysql_hostname
-from api_keys import mysql_port
-from api_keys import mysql_username
-from api_keys import mysql_pass
+try:
+    from api_keys import mysql_hostname
+    from api_keys import mysql_port
+    from api_keys import mysql_username
+    from api_keys import mysql_pass
+except:
+    pass
 
 # MySQL specific connection string
 database_name = "etlprojectdb"
@@ -16,7 +19,10 @@ table_price = "price"
 table_companies = "companies"
 table_subsectors = "sub_sectors"
 
-database_url = f"mysql+mysqlconnector://{mysql_username}:{mysql_pass}@{mysql_hostname}:{mysql_port}/{database_name}"
+try:
+    database_uri = os.environ['DATABASE_URL']
+except KeyError:
+    database_url = f"mysql+mysqlconnector://{mysql_username}:{mysql_pass}@{mysql_hostname}:{mysql_port}/{database_name}"
 
 
 # Create the engine
@@ -37,19 +43,19 @@ app = Flask(__name__)
 
 # /
 # Home page.
-@app.route("/etl")
+@app.route("/")
 def welcome():
     return render_template("index.html")
 
 
 # About page.
-@app.route("/etl/about")
+@app.route("/about")
 def about():
     return render_template("about.html")
 
 
 # Return a table with the query results for the companies table
-@app.route("/etl/company")
+@app.route("/company")
 def companies_table():
     """Return a table with the list of companies"""
 
@@ -61,7 +67,7 @@ def companies_table():
 
 
 # Return a json with the query results for the companies table
-@app.route("/etl/company/json")
+@app.route("/company/json")
 def company_json():
 
     companies_df = pd.read_sql(f"SELECT * FROM {table_companies}", engine)
@@ -73,7 +79,7 @@ def company_json():
 
 
 # Return a table with the query results for the companies table
-@app.route("/etl/<company>/<start>/<end>")
+@app.route("/<company>/<start>/<end>")
 def price_list(company, start, end):
     """Return a table with the list stock price"""
 
@@ -88,7 +94,7 @@ def price_list(company, start, end):
 
 
 # Return a table with the query results for the companies table
-@app.route("/etl/<company>/<start>/<end>/json")
+@app.route("/<company>/<start>/<end>/json")
 def price_list_json(company, start, end):
     """Return a table with the list stock price"""
 
@@ -104,7 +110,7 @@ def price_list_json(company, start, end):
 
 
 # Return a json version of the company
-@app.route("/etl/company/<tick>/json")
+@app.route("/company/<tick>/json")
 def company_tick_json(tick):
 
     Comp_info = pd.read_sql(
@@ -119,7 +125,7 @@ def company_tick_json(tick):
 
 
 # Return a json version of the company
-@app.route("/etl/company/<tick>")
+@app.route("/company/<tick>")
 def company_tick_table(tick):
 
     Comp_info = pd.read_sql(
@@ -135,4 +141,5 @@ def company_tick_table(tick):
 # The server is set to run on the computer IP address on the port 5100
 # Go to your http://ipaddress:5100
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5100, debug=True)
+    app.run(debug=False)
+    # app.run(host="0.0.0.0", port=5100, debug=False)
