@@ -21,7 +21,7 @@ table_subsectors = "sub_sectors"
 
 # Try to find an environment variable (specially for Heroko) or use database credentials.
 try:
-    database_url = os.environ['DATABASE_URL']
+    database_url = os.environ["DATABASE_URL"]
 except KeyError:
     database_url = f"mysql+mysqlconnector://{mysql_username}:{mysql_pass}@{mysql_hostname}:{mysql_port}/{database_name}"
     print(database_url)
@@ -57,15 +57,17 @@ def about():
 
 
 # Return a table with the query results for the companies table
-@app.route("/company")
+@app.route("/sp500")
 def companies_table():
     """Return a table with the list of companies"""
 
     companies_df = pd.read_sql(f"SELECT * FROM {table_companies}", engine)
+    # html = companies_df.to_html()
+    # return html
 
-    html = companies_df.to_html()
+    list_companies = companies_df.to_dict(orient="records")
 
-    return html
+    return render_template("company_list.html", list_companies=list_companies)
 
 
 # Return a json with the query results for the companies table
@@ -90,9 +92,12 @@ def price_list(company, start, end):
         engine,
     )
 
-    html = prices_df.to_html()
+    # html = prices_df.to_html()
+    # return html
 
-    return html
+    company_prices = prices_df.to_dict(orient="records")
+
+    return render_template("company_closing.html", company_prices=company_prices)
 
 
 # Return a table with the query results for the companies table
@@ -135,13 +140,16 @@ def company_tick_table(tick):
         engine,
     )
 
-    html = Comp_info.to_html()
+    # html = Comp_info.to_html()
+    # return html
 
-    return html
+    company_data = Comp_info.to_dict(orient="records")
+
+    return render_template("company_detail.html", company_data=company_data)
 
 
 # The server is set to run on the computer IP address on the port 5100
 # Go to your http://ipaddress:5100
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
     # app.run(host="0.0.0.0", port=5100, debug=False)

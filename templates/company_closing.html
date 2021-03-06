@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mb-4">
+    <h6 class="display-4">Closing Prices for {{company_prices[1].comp_tick}} </h6>
+    <p>{{company_prices[1].sect_name }} | {{company_prices[1].sub_sect_name }} | <a
+            href="/company/{{company_prices[1].comp_tick}}">Click for more details</a></p>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col-8 ml-auto mr-auto mt-4">
+            <table id="myTable" class="display p-2">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Closing Price</th>
+                        <th>Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in company_prices %}
+                    <tr>
+                        <td>{{ data.date }}</td>
+                        <td>{{data.CLOSING_PRICE }}</td>
+                        <td>{{data.volume }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    // Add advanced interaction controls to your HTML tables the free & easy way
+    // https://datatables.net/
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "order": [[0, "asc"]]
+        });
+    });
+</script>
+{% endblock content %}

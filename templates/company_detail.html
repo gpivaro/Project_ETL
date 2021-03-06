@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mb-4">
+    <h6 class="display-4">Details for {{company_data[0].comp_name }} </h6>
+    <p>Sector: {{company_data[0].sect_name }} | First trade date: {{company_data[0].first_trade_date }}</p>
+    <hr class="my-4">
+    <p id="linkClosing"></p>
+    <!-- <a>Closing prices for {{ company_data[0].comp_name }}</a> -->
+    <!-- Use JavaScript to get the current URL and retrieve the company tick -->
+    <script>
+        var tick = window.location.pathname.split("/")[2];
+        var p_tag = document.getElementById("linkClosing");
+
+        p_tag.innerHTML = `<a href="/${tick}/2015-05-03/2020-10-20">Click here for closing prices for {{company_data[0].comp_name}}</a>`
+
+    </script>
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock content %}
