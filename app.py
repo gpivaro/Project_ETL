@@ -22,11 +22,6 @@ except:
     pass
 
 
-sentry_sdk.init(
-    dsn=sentry_sdk_dsn, integrations=[FlaskIntegration()], traces_sample_rate=1.0,
-)
-
-
 # MySQL specific connection string
 database_name = "etlprojectdb"
 table_price = "price"
@@ -44,6 +39,11 @@ except KeyError:
 
 # Create the engine
 engine = create_engine(database_url)
+
+
+sentry_sdk.init(
+    dsn=sentry_sdk_dsn, integrations=[FlaskIntegration()], traces_sample_rate=1.0,
+)
 
 
 #################################################
