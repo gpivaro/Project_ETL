@@ -36,6 +36,7 @@ table_subsectors = "sub_sectors"
 # Try to find an environment variable (specially for Heroko) or use database credentials.
 try:
     database_url = os.environ["DATABASE_URL"]
+    sentry_sdk_dsn = os.environ["Sentry_Sdk_DSN"]
 except KeyError:
     database_url = f"mysql+mysqlconnector://{mysql_username}:{mysql_pass}@{mysql_hostname}:{mysql_port}/{database_name}"
     print(database_url)
