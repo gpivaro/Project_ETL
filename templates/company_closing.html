@@ -9,19 +9,20 @@
 
     <!-- Plot -->
     <div class="row">
-        <div class="col-8 ml-auto mr-auto mb-4">
+        <div class="col-8 ml-auto mr-auto mb-2">
             <div id="closingPricePlot"></div>
         </div>
     </div>
 
     <!-- Table -->
     <div class="row">
-        <div class="col-8 ml-auto mr-auto mt-4">
+        <div class="col-8 ml-auto mr-auto mt-2">
             <table id="myTable" class="display p-2">
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Closing Price ($) </th>
+                        <th>Volume </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                     <tr>
                         <td>{{ data.date }}</td>
                         <td>{{data.CLOSING_PRICE }}</td>
+                        <td>{{data.volume }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

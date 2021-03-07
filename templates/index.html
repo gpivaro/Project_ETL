@@ -11,7 +11,8 @@
         <ul>
           <li>
             <p class="lead">
-              You can acess the interactive list of S&P500 by <a href="/sp500">clicking here</a>;
+              You can acess the interactive list of S&P500 by <a href="{{ url_for('companies_table')}}">clicking
+                here</a>;
             </p>
           </li>
           <br>
@@ -21,14 +22,14 @@
               date
               and the end date
               <code>/"company ticker"/"start date"/"end date"</code> (e.g. <a
-                href="/mmm/2015-05-03/2020-10-20">/mmm/2015-05-03/2020-10-20</a>);
+                href="/MMM/2011-05-03/2021-03-05">/MMM/2011-05-03/2021-03-05</a>);
             </p>
           </li>
           <br />
           <li>
             <p class="lead">
               Or, verify the first trade date as well as the sector name for a given company by entering the URL company
-              ticker <code>"company"/"company ticker"</code> (e.g. <a href="/company/mmm">/company/mmm</a>).
+              ticker <code>"company"/"company ticker"</code> (e.g. <a href="/company/MMM">/company/MMM</a>).
             </p>
             <br />
             <p>*For a json format of the data enter /json at the end of the URL.</p>

@@ -10,6 +10,9 @@ import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
 
+#################################################
+# MySQL Database Setup
+#################################################
 # Import DB user and password
 try:
     from api_keys import mysql_hostname
@@ -34,13 +37,14 @@ try:
     sentry_sdk_dsn = os.environ["Sentry_Sdk_DSN"]
 except KeyError:
     database_url = f"mysql+mysqlconnector://{mysql_username}:{mysql_pass}@{mysql_hostname}:{mysql_port}/{database_name}"
-    print(database_url)
 
 
 # Create the engine
 engine = create_engine(database_url)
 
 
+# Sentry monitoring setup
+# https://sentry.io/
 sentry_sdk.init(
     dsn=sentry_sdk_dsn, integrations=[FlaskIntegration()], traces_sample_rate=1.0,
 )
@@ -72,7 +76,7 @@ def about():
 
 
 # Return a table with the query results for the companies table
-@app.route("/sp500")
+@app.route("/SP500")
 def companies_table():
     """Return a table with the list of companies"""
 
@@ -98,7 +102,7 @@ def company_json():
 
 
 # Return a table with the query results for the companies table
-@app.route("/<company>/<start>/<end>")
+@app.route("/<company>/<string:start>/<string:end>")
 def price_list(company, start, end):
     """Return a table with the list stock price"""
 
@@ -146,7 +150,7 @@ def company_tick_json(tick):
     return jsonify(parsed)
 
 
-# Return a json version of the company
+# Return a table data of the company
 @app.route("/company/<tick>")
 def company_tick_table(tick):
 
@@ -166,5 +170,5 @@ def company_tick_table(tick):
 # The server is set to run on the computer IP address on the port 5100
 # Go to your http://ipaddress:5100
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
     # app.run(host="0.0.0.0", port=5100, debug=False)
