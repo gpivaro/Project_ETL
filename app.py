@@ -1,8 +1,14 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, url_for
 from sqlalchemy import create_engine
 import pandas as pd
 import os
 import json
+
+"""To configure the SDK, initialize it with the integration 
+before or after your app has been initialized:"""
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+
 
 # Import DB user and password
 try:
@@ -10,8 +16,16 @@ try:
     from api_keys import mysql_port
     from api_keys import mysql_username
     from api_keys import mysql_pass
+    from api_keys import sentry_sdk_dsn
+
 except:
     pass
+
+
+sentry_sdk.init(
+    dsn=sentry_sdk_dsn, integrations=[FlaskIntegration()], traces_sample_rate=1.0,
+)
+
 
 # MySQL specific connection string
 database_name = "etlprojectdb"

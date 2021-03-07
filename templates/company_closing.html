@@ -5,14 +5,23 @@
     <p>{{company_prices[1].sect_name }} | {{company_prices[1].sub_sect_name }} | <a
             href="/company/{{company_prices[1].comp_tick}}">Click for more details</a></p>
     <hr class="my-4">
+
+
+    <!-- Plot -->
+    <div class="row">
+        <div class="col-8 ml-auto mr-auto mb-4">
+            <div id="closingPricePlot"></div>
+        </div>
+    </div>
+
+    <!-- Table -->
     <div class="row">
         <div class="col-8 ml-auto mr-auto mt-4">
             <table id="myTable" class="display p-2">
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Closing Price</th>
-                        <th>Volume</th>
+                        <th>Closing Price ($) </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,7 +29,6 @@
                     <tr>
                         <td>{{ data.date }}</td>
                         <td>{{data.CLOSING_PRICE }}</td>
-                        <td>{{data.volume }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -28,14 +36,13 @@
         </div>
     </div>
 </div>
-<script>
-    // Add advanced interaction controls to your HTML tables the free & easy way
-    // https://datatables.net/
 
-    $(document).ready(function () {
-        $('#myTable').DataTable({
-            "order": [[0, "asc"]]
-        });
-    });
-</script>
+
+
+
+
+<script src="{{ url_for('static', filename='js/closingPricePlots.js')}}"></script>
+<script src="{{ url_for('static', filename='js/interactiveTable.js')}}"></script>
+
+
 {% endblock content %}

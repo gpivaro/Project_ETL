@@ -16,5 +16,11 @@ pgadim_pass = config.get("PGADIM_PASS")
 # MySQL Credentials
 mysql_hostname = config.get("MYSQL_HOSTNAME")
 mysql_port = config.get("MYSQL_PORT")
-mysql_username = config.get("MYSQL_USERNAME")
-mysql_pass = config.get("MYSQL_PASSWORD")
+mysql_username = config.get("MYSQL_USERNAME_ETL")
+mysql_pass = config.get("MYSQL_PASSWORD_ETL")
+
+
+sentry_sdk_dsn = (
+    "https://8074567eca6b481486a9ebfa52319cfa@o537687.ingest.sentry.io/5664937"
+)
+

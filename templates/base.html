@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>ETL - Stock Price</title>
-    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -27,10 +31,14 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <a class="navbar-brand" href="/">ETL PROJECT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,10 +48,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/sp500">S&P 500 Companies</a>
+                    <a class="nav-link" href="{{ url_for('companies_table')}}">S&P 500 Companies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="{{ url_for('about')}}">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://github.com/gpivaro/Project_ETL">Github</a>
@@ -51,13 +59,9 @@
             </ul>
         </div>
     </nav>
-    <br><br>
-
-
 
 
     {% block content %}{% endblock %}
-
 
 
 </body>
